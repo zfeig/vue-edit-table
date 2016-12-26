@@ -10,6 +10,6 @@ use vue to achieve edited table for curd,serach,pagination
 * 浏览器输入 127.0.0.1:1000/table.html查看效果即可
 
 # 效果展示
-![vue-edit-table](http://img.my.csdn.net/uploads/201612/26/1482741352_8698.gif)
+![vue-edit-table](https://camo.githubusercontent.com/a70c59d7d630885da15351ab1b976effa092877c/687474703a2f2f696d672e6d792e6373646e2e6e65742f75706c6f6164732f3230313631322f32362f313438323734313335325f383639382e676966)
 
 

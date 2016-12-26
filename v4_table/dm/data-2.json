@@ -1,0 +1,15 @@
+﻿{
+	"status":200,
+	"msg":"返回成功",
+	"result":{
+		"count":75,
+		"list":[
+			{"id":6,"date":"2016/6/1","project":"激光去印","channel":"xiaom","account":"si00","platform":"空间","showNum":1234,"click":2345,"cost":2345,"discount":0.5,"disCost":1345,"charge":"何穗"},
+			{"id":7,"date":"2016/6/5","project":"点阵去印","channel":"huaw","account":"ked","platform":"微博","showNum":615,"click":3456,"cost":2578,"discount":0.8,"disCost":2245,"charge":"刘明汉"},
+			{"id":8,"date":"2016/6/22","project":"护肤水疗","channel":"apple","account":"lu2","platform":"空间","showNum":1034,"click":1129,"cost":998,"discount":0.9,"disCost":789,"charge":"刘汉超"},
+			{"id":9,"date":"2016/6/17","project":"外科隆鼻","channel":"meizu","account":"uter","platform":"微博","showNum":578,"click":4345,"cost":3388,"discount":0.6,"disCost":2113,"charge":"李杰"},
+			{"id":10,"date":"2016/6/21","project":"眉毛修复","channel":"oppo","account":"lk","platform":"微信","showNum":894,"click":1524,"cost":1078,"discount":0.9,"disCost":954,"charge":"崔大志"}
+		]
+	}
+}
+

@@ -1,0 +1,15 @@
+﻿{
+	"status":200,
+	"msg":"返回成功",
+	"result":{
+		"count":75,
+		"list":[
+			{"id":71,"date":"2015/5/11","project":"美体美甲15","channel":"meizu","account":"pxyh","platform":"空间","showNum":1234,"click":2345,"cost":2345,"discount":0.5,"disCost":1345,"charge":"张伟"},
+			{"id":72,"date":"2015/5/25","project":"瘦腰瘦脸15","channel":"huaw","account":"ssk","platform":"微博","showNum":615,"click":3456,"cost":2578,"discount":0.8,"disCost":2245,"charge":"学升"},
+			{"id":73,"date":"2015/5/5","project":"拉双眼皮15","channel":"apple","account":"too","platform":"空间","showNum":1034,"click":1129,"cost":998,"discount":0.9,"disCost":789,"charge":"洛瑞"},
+			{"id":74,"date":"2015/5/12","project":"无创丰胸15","channel":"360","account":"jseg","platform":"微博","showNum":578,"click":4345,"cost":3388,"discount":0.6,"disCost":2113,"charge":"布鲁斯"},
+			{"id":75,"date":"2015/5/28","project":"注射丰唇15","channel":"oppo","account":"vlook","platform":"微信","showNum":894,"click":1524,"cost":1078,"discount":0.9,"disCost":954,"charge":"汤森"}
+		]
+	}
+}
+

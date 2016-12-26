@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>简单价格计算器</title>
+    <script src="/lib/vue.js"></script>
+</head>
+<body>
+<div id="tmp">
+    数量： <span><button @click="add">+</button></span><input type="text" v-model="count" placeholder="count num"><button @click="plus">-</button><br><br>
+    价格：{{price}}元 &nbsp;&nbsp;折扣：<input type="text"  @blur="watchDiscount" v-model="discount">折<br><br>
+    <button v-on:click="countNum">计算总价</button> &nbsp;&nbsp;<span>{{total}}</span>
+
+</div>
+<script>
+var tmp = new Vue({
+    el:'#tmp',
+    data:{
+        count:0,
+        price:10,
+        total:0,
+        discount:10
+    },
+    methods:{
+        countNum:function () {
+            this.total = (this.price*this.count)*this.discount/10;
+        },
+        add:function () {
+            this.count=parseInt(this.count)+1;
+        },
+        plus:function () {
+            if(this.count>0){
+                this.count=parseInt(this.count)-1;
+            }
+        },
+        watchDiscount:function () {
+            if( parseInt(this.discount) > 10 ||  parseInt(this.discount) <= 0){
+                alert('超过最大值');
+                this.discount =10;
+                return;
+            }
+        }
+    }
+});
+    tmp.$watch('count',function (newVal,oldVal) {
+        this.total = (this.price*this.count)*this.discount/10;
+    });
+</script>
+</body>
+</html>

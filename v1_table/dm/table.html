@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>可编辑表格</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/style.css"/>
+    <script src="/lib/vue.js"></script>
+    <script src="/lib/vue-resource.min.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body>
+<div class="container">
+        <div id="tmp">
+          <h3 class="text-center">vue可视编辑表格</h3>
+          <div class="wrap">
+              <button class="btn btn-primary" @click="addLine">添加</button>
+               <button class="btn btn-primary" @click="del">删除</button>
+          </div>
+          <table class="table table-hover">
+              <thead>
+                <th>选择</th>
+                <th>日期</th>
+                <th>项目</th>
+                <th>渠道</th>
+                <th>账户</th>
+                <th>平台</th>
+                <th>展示</th>
+                <th>点击</th>
+                <th>消费</th>
+                <th>折扣</th>
+                <th>折后消费</th>
+                <th>负责人</th>
+                <th>操作</th>
+              </thead>
+              <tbody>
+                   <tr v-for="item in student">
+                   <td> <input type="checkbox" value="{{$index}}" v-model="checked" /></td>
+                   <td name='date' index="{{$index}}" @click="edit">{{item.date}}</td>
+                   <td name='project' index="{{$index}}" @click="edit">{{item.project}}</td>
+                   <td name='channel' index="{{$index}}" @click="edit">{{item.channel}}</td>
+                   <td name='account' index="{{$index}}" @click="edit">{{item.account}}</td>
+                   <td name='platform' index="{{$index}}" @click="edit">{{item.platform}}</td>
+                   <td name='showNum' index="{{$index}}" @click="edit">{{item.showNum}}</td>
+                   <td name='click' index="{{$index}}" @click="edit">{{item.click}}</td>
+                   <td name='cost' index="{{$index}}" @click="edit">{{item.cost}}</td>
+                   <td name='discount' index="{{$index}}" @click="edit">{{item.discount}}</td>
+                   <td name='disCost' index="{{$index}}" @click="edit">{{item.disCost}}</td>
+                   <td name='charge' index="{{$index}}" @click="edit">{{item.charge}}</td>
+                   <td><button class="btn btn-danger" @click="update(item.id)">更新</button></td>
+               </tr>
+              </tbody>
+        </table>
+    </div>
+</div>
+<script>
+    var student = [{"id":1,"date":"2016/10/1","project":"FS丰胸","channel":"360","account":"lisi007","platform":"微信","showNum":1234,"click":2345,"cost":2345,"discount":0.5,"disCost":1345,"charge":"郑敏"},{"id":2,"date":"2016/10/5","project":"开内眼角","channel":"huaw","account":"keda","platform":"微博","showNum":615,"click":3456,"cost":2578,"discount":0.8,"disCost":2245,"charge":"王勇"},{"id":3,"date":"2016/9/22","project":"无痕祛痘","channel":"xiaom","account":"luv2","platform":"qq空间","showNum":1034,"click":1129,"cost":998,"discount":0.9,"disCost":789,"charge":"汉科"},{"id":4,"date":"2016/8/17","project":"玻尿酸","channel":"lenovo","account":"jsuter","platform":"微博","showNum":578,"click":4345,"cost":3388,"discount":0.6,"disCost":2113,"charge":"李峰"},{"id":5,"date":"2016/7/21","project":"苹果肌","channel":"oppo","account":"ngtalk","platform":"微信","showNum":894,"click":1524,"cost":1078,"discount":0.9,"disCost":954,"charge":"崔申"}];
+    
+    const apiList = "http://www.yaftwo.com/api/list/1";
+    const apiUpdate = "http://www.yaftwo.com/api/update/1";
+
+    var tmp = new Vue({
+        el:'#tmp',
+        data:{
+            student:[],
+            checked:[],
+            edited:{}
+        },
+        methods:{
+             addLine:function()
+             {
+                var date = (function(){
+                    var t = new Date();
+                    var y = t.getFullYear();
+                    var m = parseInt(t.getMonth())+1;
+                    var d = t.getDate();
+                    return [y,m,d].join('/');
+                })();
+
+                var empty = {'id':0,'date':date,'project':'','channel':'','account':'','platform':'','showNum':0,'click':0,'cost':0,'discount':0,'disCost':0,'charge':''};
+                this.student.push(empty);
+             },
+             del:function(){
+                if(this.checked.length>1 || this.checked.length == 0){
+                    if(this.checked.length == 0){
+                      alert("请先勾选一个选项！");
+                      return false;
+                    }
+                    alert("每次只能删除一个选项！");
+                    return false;
+                }
+                var index = this.checked[0];
+                //alert("准备删除："+index+"元素吗？");
+                this.checked = [];
+                this.student.splice(index,1);
+             },
+             update:function(){
+                if(this.checked.length == 0){
+                   alert('请先勾选该行！');
+                   return false;
+                }else if(this.checked.length >1){
+                   alert('在线只能同时更新一条数据！');
+                   return false;
+                }
+                //获取数据id
+                var id = this.student[parseInt(this.checked[0])]['id'];
+                //传递编辑数据
+                console.log("edit data："+ JSON.stringify(this.edited));
+                if(!id){
+                    alert('add new data');
+                }else{
+                    alert('update id:'+id);
+                }
+                Vue.http.get('/data.json').then(function(data){
+                    console.log(data);
+                    console.log('ok');
+                },function(err){
+                    console.log('error');
+                })
+             },
+             edit:function(e){
+                //获取编辑对象的key和value
+                var self = this;
+                var target = e.target;
+                var key =  e.target.getAttribute("name");
+                var value = e.target.innerText;
+                //alert('name:'+key+',value:'+value);
+                //获取当前选择列的对象引用
+                if(this.checked.length == 1){
+                    var index = parseInt(this.checked[0]);//勾选索引
+                    var curIndex = parseInt(target.getAttribute("index"));
+                    if(curIndex == index){
+                        var tWith = target.offsetWidth-20;
+                        console.log("当前元素的宽度：",tWith);
+                        target.innerHTML = "<input type='text' value='" + value + "' id='_editable'  style='width:"+tWith+"px;box-sizing:border-box;background:transparent;font-size:13px;color:red;text-align:left'>";
+                        var input = document.getElementById('_editable');
+                        input.focus();//表单处于聚焦编辑
+                    
+                        var action = function() {
+                        if (value != this.value && this.value != '') {
+                            target.innerHTML = this.value;
+                            console.log("当前选择："+self.checked);
+                            console.log("更新的key:"+key);
+                            console.log("更新的值："+this.value);
+                            //更新数据【data】【edited】
+                             if(key!=null){
+                                self.student[index][key] = this.value;
+                                self.edited = self.student[index];
+                             }
+                        }else{
+                            target.innerHTML = value;
+                        }
+                        //移除blur事件监听
+                        input.removeEventListener("blur", action, false);
+                    };
+                        //添加blur事件监听
+                        input.addEventListener("blur", action, false); 
+                    }
+
+
+             
+                } 
+             }
+        },
+        ready:function(){
+            console.log('init data from server');
+            this.$http.get("/data.json").then(
+                function(data){
+                    console.log("数据："+ JSON.stringify(data));
+                    console.log("状态码："+ data.status);
+                    if(parseInt(data.status) == 200){
+                       this.student = data.body;
+                    }else{
+                        alert('request faild!');
+                        return false;
+                    }
+                },
+                function(err){
+                    console.log('error');
+                    alert('error found!');
+                    return false;
+                });
+            //this.student =student;
+        }
+    });
+
+     tmp.$watch('checked',function (newVal,oldVal) {
+        if(this.checked.length==1){
+            this.edited = this.student[parseInt(this.checked[0])];
+        }else{
+            this.edited ={}
+        }
+        console.log(this.edited);
+    });
+</script>
+</body>
+</html>

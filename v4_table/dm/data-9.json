@@ -1,0 +1,15 @@
+﻿{
+	"status":200,
+	"msg":"返回成功",
+	"result":{
+		"count":75,
+		"list":[
+			{"id":41,"date":"2016/9/11","project":"美体美甲99","channel":"meizu","account":"pxyh","platform":"空间","showNum":1234,"click":2345,"cost":2345,"discount":0.5,"disCost":1345,"charge":"张伟"},
+			{"id":42,"date":"2016/9/25","project":"瘦腰瘦脸99","channel":"huaw","account":"ssk","platform":"微博","showNum":615,"click":3456,"cost":2578,"discount":0.8,"disCost":2245,"charge":"学升"},
+			{"id":43,"date":"2016/9/5","project":"拉双眼皮99","channel":"apple","account":"too","platform":"空间","showNum":1034,"click":1129,"cost":998,"discount":0.9,"disCost":789,"charge":"洛瑞"},
+			{"id":44,"date":"2016/9/12","project":"无创丰胸99","channel":"360","account":"jseg","platform":"微博","showNum":578,"click":4345,"cost":3388,"discount":0.6,"disCost":2113,"charge":"布鲁斯"},
+			{"id":45,"date":"2016/9/28","project":"注射丰唇99","channel":"oppo","account":"vlook","platform":"微信","showNum":894,"click":1524,"cost":1078,"discount":0.9,"disCost":954,"charge":"汤森"}
+		]
+	}
+}
+

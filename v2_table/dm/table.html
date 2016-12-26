@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>可编辑表格</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/style.css"/>
+    <script src="/lib/vue.js"></script>
+    <script src="/lib/vue-resource.min.js"></script>
+</head>
+<body>
+<div class="container">
+        <div id="tmp">
+          <h3 class="text-center">vue可视编辑表格</h3>
+          <div class="wrap">
+              <button class="btn btn-primary" @click="addLine">添加</button>
+              <button class="btn btn-primary" @click="del">删除</button>
+              <button class="btn btn-primary" @click="updateAll">一键更新</button>
+          </div>
+          <table class="table table-hover">
+              <thead>
+                <th>选择</th>
+                <th>日期</th>
+                <th>项目</th>
+                <th>渠道</th>
+                <th>账户</th>
+                <th>平台</th>
+                <th>展示</th>
+                <th>点击</th>
+                <th>消费</th>
+                <th>折扣</th>
+                <th>折后消费</th>
+                <th>负责人</th>
+                <th>操作</th>
+              </thead>
+              <tbody>
+                   <tr v-for="item in student">
+                   <td> <input type="checkbox" value="{{$index}}" v-model="checked" /></td>
+                   <td name='date' index="{{$index}}" @click="edit">{{item.date}}</td>
+                   <td name='project' index="{{$index}}" @click="edit">{{item.project}}</td>
+                   <td name='channel' index="{{$index}}" @click="edit">{{item.channel}}</td>
+                   <td name='account' index="{{$index}}" @click="edit">{{item.account}}</td>
+                   <td name='platform' index="{{$index}}" @click="edit">{{item.platform}}</td>
+                   <td name='showNum' index="{{$index}}" @click="edit">{{item.showNum}}</td>
+                   <td name='click' index="{{$index}}" @click="edit">{{item.click}}</td>
+                   <td name='cost' index="{{$index}}" @click="edit">{{item.cost}}</td>
+                   <td name='discount' index="{{$index}}" @click="edit">{{item.discount}}</td>
+                   <td name='disCost' index="{{$index}}" @click="edit">{{item.disCost}}</td>
+                   <td name='charge' index="{{$index}}" @click="edit">{{item.charge}}</td>
+                   <td><button index="{{$index}}" class="btn btn-danger" @click="showInfo">查看</button></td>
+               </tr>
+              </tbody>
+        </table>
+        <!--model-->
+         <div class="modal-mask" v-show="show" >
+                  <div class="modal-wrapper">
+                    <div class="modal-container">
+
+                      <div class="modal-header">
+                        <slot name="header">
+                          <span class="glyphicon glyphicon-home span_red"></span>&nbsp;{{detail.project}}       <span class="glyphicon glyphicon-time span_red"></span>&nbsp;{{detail.date}}    <span class="glyphicon glyphicon-user span_red"></span>&nbsp;{{detail.charge}}
+                        </slot>
+                      </div>
+                      
+                      <div class="modal-body">
+                        <slot name="body">
+                          <form class="form-horizontal">
+                      
+                              <!--channel-->
+                               <div class="form-group">
+                                <label for="channel" class="col-sm-2 control-label">渠道：</label>
+                                <div class="col-sm-10">
+                                  <input type="text" class="form-control" id="channel" v-model="detail.channel" readonly>
+                                </div>
+                              </div>
+                              <!--channel-->
+                              <!--account-->
+                               <div class="form-group">
+                                <label for="account" class="col-sm-2 control-label">账户：</label>
+                                <div class="col-sm-10">
+                                  <input type="text" class="form-control" id="account" v-model="detail.account" readonly>
+                                </div>
+                              </div>
+                              <!--account-->
+                              <!--platform-->
+                               <div class="form-group">
+                                <label for="platform" class="col-sm-2 control-label">平台：</label>
+                                <div class="col-sm-10">
+                                  <input type="text" class="form-control" id="platform" v-model="detail.platform" readonly>
+                                </div>
+                              </div>
+                              <!--platform-->
+                              <!--showNum-->
+                               <div class="form-group">
+                                <label for="showNum" class="col-sm-2 control-label">展示：</label>
+                                <div class="col-sm-10">
+                                  <input type="text" class="form-control" id="showNum" v-model="detail.showNum" readonly>
+                                </div>
+                              </div>
+                              <!--showNum-->
+                              <!--click-->
+                               <div class="form-group">
+                                <label for="click" class="col-sm-2 control-label">点击：</label>
+                                <div class="col-sm-10">
+                                  <input type="text" class="form-control" id="click" v-model="detail.click" readonly>
+                                </div>
+                              </div>
+                              <!--click-->
+                              <!--cost-->
+                               <div class="form-group">
+                                <label for="cost" class="col-sm-2 control-label">消费：</label>
+                                <div class="col-sm-10">
+                                  <input type="text" class="form-control" id="cost" v-model="detail.cost" readonly>
+                                </div>
+                              </div>
+                              <!--cost-->
+                               <!--discount-->
+                               <div class="form-group">
+                                <label for="discount" class="col-sm-2 control-label">折扣：</label>
+                                <div class="col-sm-10">
+                                  <input type="text" class="form-control" id="discount" v-model="detail.discount" readonly>
+                                </div>
+                              </div>
+                              <!--discount-->
+                               <!--disCost-->
+                               <div class="form-group">
+                                <label for="disCost" class="col-sm-2 control-label">折后消费：</label>
+                                <div class="col-sm-10">
+                                  <input type="text" class="form-control" id="disCost" v-model="detail.disCost" readonly>
+                                </div>
+                              </div>
+                              <!--disCost-->
+                          </form>
+                        </slot>
+                      </div>
+
+                      <div class="modal-footer">
+                        <slot name="footer">
+                          <button class="btn btn-primary modal-default-button" @click='cancel'>
+                            关闭
+                          </button>
+                        </slot>
+                      </div>
+                    </div>
+                  </div>
+        </div>
+        <!--model-->
+    </div>
+</div>
+<script>
+    const apiList = "/data.json";
+    const apiUpdate = "/data.json";
+    const apiDelete = "/data.json";
+    const indexUrl = window.location.href; 
+    var tmp = new Vue({
+        el:'#tmp',
+        data:{
+            student:[],
+            checked:[],
+            detail:{},
+            show:false
+        },
+        methods:{
+             addLine:function(){
+             //增加新的数据行
+                var date = (function(){
+                    var t = new Date();
+                    var y = t.getFullYear();
+                    var m = parseInt(t.getMonth())+1;
+                    var d = t.getDate();
+                    return [y,m,d].join('/');
+                })();
+
+                var empty = {'id':0,'date':date,'project':'','channel':'','account':'','platform':'','showNum':0,'click':0,'cost':0,'discount':0,'disCost':0,'charge':''};
+                this.student.push(empty);
+             },
+             del:function(){
+              //删除选中的一行或多行
+                if(this.checked.length == 0){
+                    if(this.checked.length == 0){
+                      alert("请先勾选一个选项！");
+                      return false;
+                    }
+                }
+                //后台删除（筛选出有id的）
+                var rIds = [];
+                for(var i in this.checked){
+                  var _index = parseInt(this.checked[i]);
+                  if(this.student[_index]['id'] >0){
+                    rIds.push(this.student[_index]['id']);
+                  }
+                }
+                console.log('real ids is:',rIds);
+                if(rIds.length>0){
+                  //请求后台删除接口
+                  console.log('call delte api!');
+                }
+
+                //删除选中的全局变量
+                 this.spliceIndexs(this.checked,this.student);
+                 this.checked = [];
+                 // console.log('全局变量：',this.student);
+                 // console.log('checked:',this.checked);
+             },
+             updateAll:function(){
+              //一键更新修改的内容
+              var post = [];
+              for(var i in this.student){
+                if(!!this.student[i]['_change']){
+                   delete this.student[i]['_change'];
+                   post.push(this.student[i]);
+                }
+              }
+              if(post.length == 0){
+                 alert('请先修改数据后再来提交！');
+                 return false;
+              }else{
+                 console.log("call uodate api!");
+                 console.log("post to update:",post);
+                 console.log("raw data:",this.student);
+                 //后台ajax提交数据更新操作
+                 alert("后台更新数据:"+JSON.stringify(post));
+                 //成功后执行首页跳转
+                 window.location.reload();//解决新增的数据id=0无法删除的bug
+              }
+             
+
+             },
+             showInfo:function(e){
+              //查看详情
+                var target = e.target;
+                var curIndex = target.getAttribute("index");
+                this.detail = this.student[curIndex];
+                //self.detail = self.student[curIndex];
+                console.log(this.detail);
+                this.show = !this.show;
+             },
+             cancel:function(){
+              //模态框关闭
+                this.show = false;
+                this.detail = {};
+             },
+             edit:function(e){
+                //获取编辑对象的key和value
+                var self = this;
+                var target = e.target;
+                var curIndex = target.getAttribute("index");
+                var key =  e.target.getAttribute("name");
+                var value = e.target.innerText;
+                var tWith = target.offsetWidth-20;
+                console.log("当前元素的宽度：",tWith);
+                target.innerHTML = "<input type='text' value='" + value + "' id='_editable'  style='width:"+tWith+"px;box-sizing:border-box;background:transparent;font-size:13px;color:red;text-align:left'>";
+                var input = document.getElementById('_editable');
+                input.focus();//表单处于聚焦编辑
+                //定义自定义响应函数
+                var action = function(){
+                    if (value != this.value && this.value != ''){
+                          target.innerHTML = this.value;
+                          //更新数据【data】
+                          if(key!=null && curIndex!=null){
+                              console.log("当前选择索引："+curIndex);
+                              console.log("更新的key:"+key);
+                              console.log("更新的值："+this.value);
+                              self.student[curIndex][key] = this.value;
+                              if(self.student[curIndex]['_change']==undefined){
+                                  self.student[curIndex]['_change'] = true;
+                              }
+                              console.log("更新后的全局变量：",self.student);
+                          }
+                    }else{
+                        target.innerHTML = value;
+                    }
+                };
+
+                //添加blur事件监听
+                input.addEventListener("blur", action, false); 
+             },
+             spliceIndexs:function(indexsArr,arr){
+             //删除数组中多个指定位置元素
+                  for(var i=0;i<indexsArr.length;i++){
+                    var start = indexsArr[i]-i; 
+                    arr.splice(start,1);
+                  }
+             }
+        },
+        ready:function(){
+            console.log('call init list api!');
+            this.$http.get(apiList).then(
+                function(data){
+                    console.log("数据："+ JSON.stringify(data));
+                    console.log("状态码："+ data.status);
+                    if(parseInt(data.status) == 200){
+                       this.student = data.body;
+                    }else{
+                        alert('request faild!');
+                        return false;
+                    }
+                },
+                function(err){
+                    console.log('error');
+                    alert('error found!');
+                    return false;
+                });
+        }
+    });
+
+     tmp.$watch('checked',function (newVal,oldVal) {
+        console.log("this checked",this.checked);
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,15 @@
+﻿{
+	"status":200,
+	"msg":"返回成功",
+	"result":{
+		"count":75,
+		"list":[
+			{"id":16,"date":"2016/5/11","project":"美甲修饰","channel":"meizu","account":"lisi009","platform":"空间","showNum":1234,"click":2345,"cost":2345,"discount":0.5,"disCost":1345,"charge":"郭冬临"},
+			{"id":17,"date":"2016/5/25","project":"减肥茶","channel":"huaw","account":"kda","platform":"微博","showNum":615,"click":3456,"cost":2578,"discount":0.8,"disCost":2245,"charge":"王洁"},
+			{"id":18,"date":"2016/5/5","project":"安神精油","channel":"apple","account":"lv2","platform":"空间","showNum":1034,"click":1129,"cost":998,"discount":0.9,"disCost":789,"charge":"李锐"},
+			{"id":19,"date":"2016/5/12","project":"中医理疗","channel":"360","account":"jser","platform":"微博","showNum":578,"click":4345,"cost":3388,"discount":0.6,"disCost":2113,"charge":"李伟"},
+			{"id":20,"date":"2016/5/28","project":"脚部推拿","channel":"oppo","account":"nlk","platform":"微信","showNum":894,"click":1524,"cost":1078,"discount":0.9,"disCost":954,"charge":"黄亮"}
+		]
+	}
+}
+
